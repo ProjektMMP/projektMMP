@@ -58,7 +58,6 @@ module.exports.authenticate = (req, res, next) => {
 }
 
 module.exports.userProfile = (req, res, next) =>{
-    console.log('id: fajne takie: '+req._id);
     User.findOne({ _id: req._id },
         (err, user) => {
             if (!user)
@@ -70,8 +69,8 @@ module.exports.userProfile = (req, res, next) =>{
 }
 
 module.exports.updateTheme=(req,res, next)=>{
-    //console.log('fajnie jest');
-    User.updateOne({_id: req._id },{$set:{theme:req.body.theme}},{upsert:true}, function (err,doc){
+    console.log('fajnie jest: '+req.__id);
+    User.updateOne({ nickname:req.body.nickname},{$set:{theme:req.body.theme}},{upsert:true}, function (err,doc){
 
         if(err) return res.status(213).json({status:false, message: 'Update nie poszedl po naszej mysli'})
         else (!err)
