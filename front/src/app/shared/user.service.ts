@@ -28,11 +28,14 @@ export class UserService {
     return this.http.post(environment.apiBaseUrl + '/authenticate', authCredentials,this.noAuthHeader);
   }
 
+  getAuthUserProfile() {
+    return this.http.get(environment.apiBaseUrl + '/userauthprofile');
+  }
   getUserProfile() {
     return this.http.get(environment.apiBaseUrl + '/userprofile');
   }
   updateUserTheme(user : User){ //theme
-   return this.http.post(environment.apiBaseUrl + '/updateTheme', user); // CHUJ WIE CO TU TRZEBA ZROBIC
+   return this.http.post(environment.apiBaseUrl + '/updateTheme', user);
   }
   setToken(token: string) {
     localStorage.setItem('token', token);
@@ -62,6 +65,7 @@ export class UserService {
       return userPayload.exp > Date.now() / 1000;
     else
       return false;
+
   }
 
   setUserTheme(value){

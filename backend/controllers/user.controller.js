@@ -57,13 +57,26 @@ module.exports.authenticate = (req, res, next) => {
     })(req, res);
 }
 
-module.exports.userProfile = (req, res, next) =>{
+module.exports.userAuthProfile = (req, res, next) =>{
+    console.log('pobieram usera');
     User.findOne({ _id: req._id },
         (err, user) => {
             if (!user)
                 return res.status(404).json({ status: false, message: 'Użytkownik nie znaleziony.' });
             else
-                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password','theme' ]) }); //dane eksportowane do frontu
+                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password','theme' ]) }); //dane eksportowane do frontu dla auth user
+        }
+    );
+}
+
+module.exports.userProfile = (req, res, next) =>{
+    console.log('pobieram usera');
+    User.findOne({ _id: req._id },
+        (err, user) => {
+            if (!user)
+                return res.status(404).json({ status: false, message: 'Użytkownik nie znaleziony.' });
+            else
+                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','theme' ]) }); //dane eksportowane do frontu dla nie auth user
         }
     );
 }

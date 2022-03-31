@@ -17,12 +17,12 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUserProfile().subscribe(
+    this.userService.getAuthUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
       },
       err => {
-        console.log(err);
+       console.log(err);
 
       }
     );
