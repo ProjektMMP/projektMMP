@@ -16,10 +16,17 @@ export const appRoutes: Routes = [
         children: [{ path: '', component: SignUpComponent }]
     },
     {
-        path: 'adminpanel', component: AdminPanelComponent//,canActivate:[AuthGuard]
+        path: 'adminpanel', component: AdminPanelComponent ,canActivate:[AuthGuard]
     },
   {
     path: 'userprofile', component: UserProfileComponent//,canActivate:[AuthGuard]
+  },
+  {
+    path:'blog', component:UserProfileComponent,
+    children:[{
+      path: 'blog/:type',
+      component: UserProfileComponent
+    }]
   },
     {
         path: '', redirectTo: 'login', pathMatch: 'full'

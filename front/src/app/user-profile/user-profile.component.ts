@@ -17,7 +17,20 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit() {
 
-    this.userService.getUserProfile().subscribe(
+   /*this.userService.getUserProfile().subscribe(
+      res => {
+        this.userDetails = res['user'];
+        console.log('Theme: '+this.userDetails.theme);
+        this.currentItem=this.userDetails;
+        this.pickTheme=this.currentItem.theme; // bo chyba zasysa z bazy
+      },
+      err => {
+        console.log(err);
+
+      }
+    );*/
+
+    this.userService.getAuthUserProfile().subscribe(
       res => {
         this.userDetails = res['user'];
         console.log('Theme: '+this.userDetails.theme);
@@ -29,7 +42,6 @@ export class UserProfileComponent implements OnInit {
 
       }
     );
-
   }
 
 
