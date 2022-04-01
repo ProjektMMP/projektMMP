@@ -37,6 +37,9 @@ export class UserService {
   updateUserTheme(user : User){ //theme
    return this.http.post(environment.apiBaseUrl + '/updateTheme', user);
   }
+  askAndGetBlog(user : User){
+    return this.http.post(environment.apiBaseUrl + '/askAndGetBlog', user);
+  }
   setToken(token: string) {
     localStorage.setItem('token', token);
   }

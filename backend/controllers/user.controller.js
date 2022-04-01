@@ -96,3 +96,14 @@ module.exports.updateTheme=(req,res, next)=>{
     })
 }
 
+module.exports.askAndGetBlog=(req,res,next)=>{
+    console.log('askAndGetBlog: '+req.body.website);
+    User.findOne({ website: req.body.website},
+        (err, user) => {
+            if (!user)
+                return res.status(405).json({ status: false, message: 'Użytkownik nie znaleziony.' });
+            else
+                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','theme' ]) }); //dane eksportowane do frontu dla nie auth user
+        }
+    );
+}

@@ -22,11 +22,7 @@ export const appRoutes: Routes = [
     path: 'userprofile', component: UserProfileComponent//,canActivate:[AuthGuard]
   },
   {
-    path:'blog', component:UserProfileComponent,
-    children:[{
-      path: 'blog/:type',
-      component: UserProfileComponent
-    }]
+    path:'blog/:id', component:UserProfileComponent,
   },
     {
         path: '', redirectTo: 'login', pathMatch: 'full'

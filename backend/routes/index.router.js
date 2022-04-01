@@ -9,5 +9,6 @@ router.post('/register', ctrlUser.register);
 router.post('/authenticate', ctrlUser.authenticate);
 router.get('/userauthprofile',jwtHelper.verifyJwtToken, ctrlUser.userProfile);
 router.get('/userprofile', ctrlUser.userProfile);
-router.post('/updateTheme',ctrlUser.updateTheme)
+router.post('/updateTheme',ctrlUser.updateTheme);
+router.post('/askAndGetBlog',ctrlUser.askAndGetBlog);
 module.exports = router;
