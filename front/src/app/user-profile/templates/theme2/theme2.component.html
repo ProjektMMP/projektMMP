@@ -1,19 +1,9 @@
-<h1>Theme2--{{userDetails.theme}}</h1>
+<h1>Theme2 -- {{userDetails.theme}}</h1>
 <table *ngIf="userDetails" class="table-fill">
   <thead>
   <tr>
     <th colspan="2" class="text-center" *ngIf="userDetails.website">{{userDetails.website}}</th>
   </tr>
   </thead>
-  <tbody>
-  <tr>
-    <td>Email</td>
-    <td>{{userDetails.email}}</td>
-  </tr>
-  <tr>
-    <td colspan="2" class="text-center">
-      <input type="button" (click)="onLogout()" value="Wyloguj się" />
-    </td>
-  </tr>
-  </tbody>
+
 </table>

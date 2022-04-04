@@ -25,6 +25,7 @@ import { TemplatesComponent } from './admin-panel/content/templates/templates.co
 import { SettingsComponent } from './admin-panel/content/settings/settings.component';
 import {Theme1Component} from "./user-profile/templates/theme1/theme1.component";
 import {Theme2Component} from "./user-profile/templates/theme2/theme2.component";
+import { Theme3Component } from './user-profile/templates/theme3/theme3.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {Theme2Component} from "./user-profile/templates/theme2/theme2.component"
     TemplatesComponent,
     SettingsComponent,
     Theme1Component,
-    Theme2Component
+    Theme2Component,
+    Theme3Component
   ],
   imports: [
     BrowserModule,
