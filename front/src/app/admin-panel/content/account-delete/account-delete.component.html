@@ -1,0 +1,36 @@
+<div class="wrapper">
+    <form action="" [formGroup]="DeleteAccountForm" (ngSubmit)="onSubmit(DeleteAccountForm)">
+      <div id="formContent">
+        <h2>Dezaktywuj konto</h2>
+        <div>
+          <input placeholder="Podaj hasło" type="password" id="passwordDeactivate" formControlName="passwordDeactivate" />
+          <div *ngIf="
+              !DeleteAccountForm.get('passwordDeactivate').valid &&
+              DeleteAccountForm.get('passwordDeactivate').value !=
+                userDetails?.password &&
+              !IsFormDeleteValid &&
+              !IsFormDeleteValid
+            " class="help-block"><label class="validation-message">
+            Nieprawidłowe hasło!</label>
+          </div>
+        </div>
+        <div>
+          <input type="checkbox" id="accepted" name="accepted" #checkBox/><label>Potwierdzam dezaktywację konta</label>
+        </div>
+        <div *ngIf="!checkBox.checked &&
+              !IsFormDeleteValid
+            " class="help-block"><label class="validation-message">
+            Hasła się nie zgadzają.</label>
+          </div>
+          <div>
+            <input type="submit" value="Dezaktywuj konto" />
+          </div>
+        <div id="successMsg" *ngIf="successMessage">
+          <div>{{ successMessage }}</div>
+        </div>
+        <div class="alert" *ngIf="serverErrorMessages">
+          {{ serverErrorMessages }}
+        </div>
+      </div>
+    </form>
+  </div>
