@@ -1,0 +1,77 @@
+<div></div>
+<form
+  #signUpForm="ngForm"
+  (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)"
+>
+  <input
+    type="text"
+    #website="ngModel"
+    [(ngModel)]="userService.selectedUser.website"
+    name="website"
+    placeholder="Nazwa blogu"
+    required
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !website.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && !website.valid">
+    <label class="validation-message">To pole jest wymagane.</label>
+  </div>
+  <input
+    type="text"
+    #nickname="ngModel"
+    [(ngModel)]="userService.selectedUser.nickname"
+    name="nickname"
+    placeholder="Nazwa użytkownika"
+    required
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !nickname.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && !nickname.valid">
+    <label class="validation-message">To pole jest wymagane.</label>
+  </div>
+  <input
+    type="text"
+    #email="ngModel"
+    [(ngModel)]="userService.selectedUser.email"
+    name="email"
+    placeholder="Email"
+    required
+    [pattern]="emailRegex"
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !email.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && email.errors">
+    <label *ngIf="email.errors.required" class="validation-message"
+      >To pole jest wymagane.</label
+    >
+    <label *ngIf="email.errors.pattern" class="validation-message"
+      >Nieprawidłowy adres e-mail</label
+    >
+  </div>
+  <input
+    type="password"
+    #password="ngModel"
+    [(ngModel)]="userService.selectedUser.password"
+    name="password"
+    placeholder="Hasło"
+    minlength="4"
+    required
+    [ngClass]="{ 'invalid-textbox': signUpForm.submitted && !password.valid }"
+  />
+  <div *ngIf="signUpForm.submitted && password.errors">
+    <label *ngIf="password.errors.required" class="validation-message"
+      >To pole jest wymagane.</label
+    >
+    <label *ngIf="password.errors.minlength" class="validation-message"
+      >Hasło musi zawierać przynajmniej 4 znaki!</label
+    >
+  </div>
+  <div class="buttons">
+  <input type="submit" value="Zarejestruj się" />
+  </div>
+</form>
+
+<!-- Success message -->
+<div class="success" *ngIf="showSucessMessage">Zarejestrowano pomyślnie!</div>
+
+<!-- Error message -->
+<div class="alert" *ngIf="serverErrorMessages">
+  {{ serverErrorMessages }}
+</div>
