@@ -27,11 +27,11 @@ export class PasswordChangeComponent implements OnInit {
   ngOnInit(): void {
     this.Init();
     this.userService.getAuthUserProfile().subscribe(
-      res => {
+      (res) => {
         this.userDetails = res['user'];
         console.log(this.userDetails.nickname);
       },
-      err => {
+      (err) => {
         console.log(err);
       }
     );
