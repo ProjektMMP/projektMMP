@@ -1,0 +1,98 @@
+<div class="wrapper">
+  <form action="" [formGroup]="ChangePasswordForm" (ngSubmit)="onSubmit(ChangePasswordForm)">
+    <div id="formContent">
+      <h2>Zmień swoje hasło</h2>
+      <div>
+        <input placeholder="Dotychczasowe hasło" type="password" id="passwordOld" formControlName="passwordOld" />
+        <div *ngIf="
+            !ChangePasswordForm.get('passwordOld').valid &&
+            ChangePasswordForm.get('passwordOld').value !=
+              userDetails?.password &&
+            !IsFormValid &&
+            !IsFormValid
+          " class="help-block"><label class="validation-message">
+          Nieprawidłowe hasło!</label>
+        </div>
+      </div>
+      <div>
+        <input placeholder="Nowe hasło" type="password" id="newPassword" formControlName="newPassword" />
+        <div *ngIf="!ChangePasswordForm.get('newPassword').valid && !IsFormValid" class="help-block">
+          <label class="validation-message">
+          Hasło wymaga co najmniej 4 znaków.</label>
+        </div>
+      </div>
+      <div>
+        <input placeholder="Potwierdź hasło" type="password" id="confirmPassword" formControlName="confirmPassword" />
+        <div *ngIf="
+            !ChangePasswordForm.get('confirmPassword').valid && !IsFormValid
+          " class="help-block"><label class="validation-message">
+          Potwierdź nowe hasło!</label>
+        </div>
+        <div *ngIf="
+            ChangePasswordForm.get('confirmPassword').valid &&
+            ChangePasswordForm.get('confirmPassword').value !=
+              ChangePasswordForm.get('newPassword').value &&
+            !IsFormValid
+          " class="help-block"><label class="validation-message">
+          Hasła się nie zgadzają.</label>
+        </div>
+      </div>
+      <div>
+        <div>
+          <input type="submit" value="Zmień hasło" />
+        </div>
+      </div>
+      <div id="successMsg" *ngIf="successMessage">
+        <div>{{ successMessage }}</div>
+      </div>
+      <div class="alert" *ngIf="serverErrorMessages">
+        {{ serverErrorMessages }}
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="wrapper">
+  <form action="" [formGroup]="DeleteAccountForm" (ngSubmit)="onSubmit(DeleteAccountForm)">
+    <div id="formContent">
+      <h2>Dezaktywuj konto</h2>
+      <div>
+        <input placeholder="Podaj hasło" type="password" id="passwordDeactivate" formControlName="passwordDeactivate" />
+        <div *ngIf="
+            !DeleteAccountForm.get('passwordDeactivate').valid &&
+            DeleteAccountForm.get('passwordDeactivate').value !=
+              userDetails?.password &&
+            !IsFormDeleteValid &&
+            !IsFormDeleteValid
+          " class="help-block"><label class="validation-message">
+          Nieprawidłowe hasło!</label>
+        </div>
+      </div>
+      <div>
+        <input type="checkbox" id="accepted" name="accepted" #checkBox><label>Potwierdzam dezaktywację konta</label>
+      </div>
+      <div *ngIf="!checkBox.checked &&
+            !IsFormValid
+          " class="help-block"><label class="validation-message">
+          Hasła się nie zgadzają.</label>
+        </div>
+        <div>
+          <input type="submit" value="Zmień hasło" />
+        </div>
+      <div id="successMsg" *ngIf="successMessage">
+        <div>{{ successMessage }}</div>
+      </div>
+      <div class="alert" *ngIf="serverErrorMessages">
+        {{ serverErrorMessages }}
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="col py-3" [ngSwitch]="display">
+  <app-home *ngSwitchCase="'home'"></app-home>
+  <app-templates *ngSwitchCase="'templates'"></app-templates>
+  <app-settings *ngSwitchCase="'settings'"></app-settings>
+  <app-password-change *ngSwitchCase="'password-change'"></app-password-change>
+  <app-account-delete *ngSwitchCase="'account-delete'"></app-account-delete>
+</div>

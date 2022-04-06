@@ -1,0 +1,27 @@
+<form action="" [formGroup]="ResponseResetForm" (ngSubmit)="onSubmit(ResponseResetForm)">
+  <input placeholder="Nowe hasło" type="password" id="newPassword" formControlName="newPassword" />
+  <div *ngIf="!ResponseResetForm.get('newPassword').valid && !IsResetFormValid" class="help-block">
+    <label class="validation-message">
+      Hasło wymaga przynajmniej 4 znaków.</label>
+  </div>
+  <input placeholder="Potwierdź hasło" type="password" id="confirmPassword" formControlName="confirmPassword" />
+  <div *ngIf="!ResponseResetForm.get('confirmPassword').valid && !IsResetFormValid" class="help-block">
+    <label> Potwierdź nowe hasło!</label>
+  </div>
+  <div *ngIf="
+      ResponseResetForm.get('confirmPassword').valid &&
+      ResponseResetForm.get('confirmPassword').value !=
+        ResponseResetForm.get('newPassword').value &&
+      !IsResetFormValid
+    " class="help-block">
+    <label class="validation-message"> Hasła się nie zgadzają!</label>
+  </div>
+
+  <input type="submit" value="Zmień hasło" />
+  <div class="success" id="successMsg" *ngIf="successMessage">
+    <span>{{ successMessage }}</span>
+  </div>
+  <div class="alert" *ngIf="serverErrorMessages">
+    {{ serverErrorMessages }}
+  </div>
+</form>
