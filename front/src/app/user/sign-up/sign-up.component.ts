@@ -1,6 +1,7 @@
 import { Component, Injectable, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/shared/user.model';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { UserService } from '../../shared/user.service'
 
@@ -14,7 +15,9 @@ export class SignUpComponent implements OnInit {
   showSucessMessage: boolean;
   serverErrorMessages: string;
 
-  constructor(public userService: UserService) { 
+  constructor(public userService: UserService, 
+    private router: Router,
+    private route: ActivatedRoute,) { 
   }
 
   ngOnInit() {
@@ -25,7 +28,10 @@ export class SignUpComponent implements OnInit {
     this.userService.postUser(form.value).subscribe(
       res => {
         this.showSucessMessage = true;
-        setTimeout(() => this.showSucessMessage = false, 4000);
+        setTimeout(() => {
+          this.showSucessMessage = false;
+          this.router.navigate(['login']);
+        }, 3000);
         this.resetForm(form);
       },
       err => {
@@ -44,7 +50,8 @@ export class SignUpComponent implements OnInit {
       nickname: '',
       email: '',
       password: '',
-      theme:''
+      theme:'',
+      isVisible: true
     };
     form.resetForm();
     this.serverErrorMessages = '';

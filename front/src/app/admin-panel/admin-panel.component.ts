@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../shared/user.service';
 import { Router } from '@angular/router';
+import { NgSwitchCase } from '@angular/common';
 
 @Component({
   selector: 'app-admin-panel',
@@ -48,5 +49,10 @@ export class AdminPanelComponent implements OnInit {
      this.userService.setUserTheme(theme);
     console.log('theme now: '+this.userDetails.theme)
 
+  }
+
+  addVisibility(isVisible) {
+    this.userService.setVisibility(isVisible);
+    console.log('visibility: '+this.userDetails.isVisible)
   }
 }

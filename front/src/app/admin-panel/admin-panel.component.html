@@ -55,7 +55,10 @@
                 <a class="nav-link px-0" role="button" (click)="onClick('password-change')"> <span class="d-none d-sm-inline">Zmiana hasła</span></a>
               </li>
               <li>
-                <a class="nav-link px-0" role="button" (click)="onClick('account-delete')"> <span class="d-none d-sm-inline">Dezaktywacja konta</span></a>
+                <a class="nav-link px-0" role="button" (click)="onClick('account-delete')"> <span class="d-none d-sm-inline">Usuwanie konta</span></a>
+              </li>
+              <li>
+                <a class="nav-link px-0" role="button" (click)="onClick('visibility')"> <span class="d-none d-sm-inline">Ukrywanie blogu</span></a>
               </li>
             </ul>
           </li>
@@ -85,6 +88,7 @@
       <app-settings *ngSwitchCase="'settings'"></app-settings>
       <app-password-change *ngSwitchCase="'password-change'"></app-password-change>
       <app-account-delete *ngSwitchCase="'account-delete'"></app-account-delete>
+      <app-visibility *ngSwitchCase="'visibility'"></app-visibility>
       <app-home *ngSwitchCase="''"></app-home>
 
     </div>

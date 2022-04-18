@@ -28,6 +28,10 @@ var userSchema = new mongoose.Schema({
     default: '1',
     maxLength: [1]
 },
+  isVisible: {
+    type: Boolean,
+    default: true,
+  },
   saltSecret: String,
   resetLink: {
     data: String,

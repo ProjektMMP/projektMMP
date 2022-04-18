@@ -25,15 +25,18 @@ export class UserProfileComponent implements OnInit {
       var fullUrl = window.location.href.split("/")
       var web = fullUrl[4];
       var replace = web.replace("%20", " ");
-
       this.userService.selectedUser.website=replace;
-
         console.log(fullUrl);
         console.log(web);
         this.userService.askAndGetBlog(this.userService.selectedUser).subscribe(
           res => {
             this.exists = true;
             this.userDetails = res['user'];
+            console.log(this.userDetails?.isVisible);
+            if(!this.userDetails?.isVisible){
+              console.log('Strona ukryta!');
+              this.exists = false;
+            }
             console.log('Theme: ' + this.userDetails?.theme);
             this.currentItem = this.userDetails;
             this.pickTheme = this.currentItem.theme; // bo chyba zasysa z bazy
@@ -58,6 +61,7 @@ export class UserProfileComponent implements OnInit {
 
         }
       );
+      this.router.navigate(['/userprofile']);
     }
   }
 
