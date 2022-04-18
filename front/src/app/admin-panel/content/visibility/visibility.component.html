@@ -1,0 +1,34 @@
+<div class="wrapper">
+<div *ngIf="userDetails?.isVisible">
+    <form action="" [formGroup]="HideBlogForm" (ngSubmit)="onSubmitHide(HideBlogForm)">
+      <div id="formContent">
+        <h2>Ukrycie blogu dla innych</h2>
+        <div>
+          <input type="submit" value="Ukryj blog" />
+      </div>
+      <div div class="success" *ngIf="successMessage">
+        <div>{{ successMessage }}</div>
+      </div>
+      <div class="alert" *ngIf="serverErrorMessages">
+        {{ serverErrorMessages }}
+      </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="!userDetails?.isVisible">
+    <form action="" [formGroup]="ShowBlogForm" (ngSubmit)="onSubmitShow(ShowBlogForm)">
+      <div id="formContent">
+        <h2>Blog jest obecnie ukryty dla innych</h2>
+        <div>
+          <input type="submit" value="Ponownie udostępnij blog" />
+      </div>
+      <div div class="success" *ngIf="successMessage">
+        <div>{{ successMessage }}</div>
+      </div>
+      <div class="alert" *ngIf="serverErrorMessages">
+        {{ serverErrorMessages }}
+      </div>
+      </div>
+    </form>
+  </div>
+</div>

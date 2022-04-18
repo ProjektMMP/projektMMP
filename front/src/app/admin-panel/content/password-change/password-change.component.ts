@@ -17,6 +17,7 @@ export class PasswordChangeComponent implements OnInit {
   IsFormValid = true;
   userDetails: any;
   display='';
+  oldPassHelper: any;
 
   constructor(
     private userService: UserService,
@@ -46,6 +47,11 @@ export class PasswordChangeComponent implements OnInit {
     });
 
   }
+
+  getOldPassword() {
+    return this.ChangePasswordForm.value.passwordOld;
+  }
+
   Validate(passwordFormGroup: FormGroup) {
     const new_password = passwordFormGroup.controls.newPassword.value;
     const confirm_password = passwordFormGroup.controls.confirmPassword.value;
@@ -64,7 +70,10 @@ export class PasswordChangeComponent implements OnInit {
   }
 
    onSubmit(form) {
+     this.getOldPassword();
+     console.log("Old password:" + this.getOldPassword());
      this.ChangePasswordForm.value.nickname = this.userDetails.nickname;
+     this.IsFormValid = true;
      console.log(form);
      if (form.valid) {
        this.IsFormValid = true;
@@ -79,9 +88,9 @@ export class PasswordChangeComponent implements OnInit {
            }, 3000);
          },
          (err) => {
+           this.IsFormValid = false;
            if (err.status === 400) {
              console.log('Złe hasło!');
-             this.serverErrorMessages = 'Podano błędne dotychczasowe hasło!';
            }
          }
        );

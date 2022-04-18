@@ -11,7 +11,7 @@
   <div *ngIf="
       ResponseResetForm.get('confirmPassword').valid &&
       ResponseResetForm.get('confirmPassword').value !=
-        ResponseResetForm.get('newPassword').value &&
+      ResponseResetForm.get('newPassword').value &&
       !IsResetFormValid
     " class="help-block">
     <label class="validation-message"> Hasła się nie zgadzają!</label>

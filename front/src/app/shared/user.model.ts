@@ -4,4 +4,5 @@ export class User {
     email: string; 
     password: string;
     theme: string;
+    isVisible: boolean;
 }
