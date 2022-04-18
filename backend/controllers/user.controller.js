@@ -78,7 +78,7 @@ module.exports.userAuthProfile = (req, res, next) =>{
           if (!user)
               return res.status(404).json({ status: false, message: 'Użytkownik nie znaleziony.' });
           else
-              return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password','theme' ]) }); //dane eksportowane do frontu dla auth user
+              return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password', 'theme', 'isVisible']) }); //dane eksportowane do frontu dla auth user
       }
   );
 }
@@ -91,7 +91,7 @@ module.exports.userProfile = (req, res, next) =>{
             if (!user)
                 return res.status(404).json({ status: false, message: 'Użytkownik nie znaleziony.' });
             else
-                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password', 'theme' ]) }); //dane eksportowane do frontu dla nie auth user
+                return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','email', 'password', 'theme', 'isVisible' ]) }); //dane eksportowane do frontu dla nie auth user
         }
     );
 }
@@ -141,7 +141,6 @@ module.exports.userProfile = (req, res, next) =>{
 
 module.exports.ForgotPassword = async (req, res) => {
   if (!req.body) {
-    console.log("Pusty email");
     return res.status(409).json({
       message: "Email jest wymagany",
     });
@@ -273,16 +272,13 @@ module.exports.ResetPassword = async (req, res) => {
 module.exports.ChangePasswordSettings = (req, res) => {
   const oldPass = req.body.passwordOld;
   const newPass = req.body.newPassword;
-  console.log("Funkcja działa, nowe hasło:", newPass);
   User.findOne(
     {
       nickname: req.body.nickname,
-      oldPass,
+      password: oldPass,
     },
     (err, user) => {
       if (err || !user) {
-        console.log(newPass);
-        console.log("Złe hasło");
         return res.status(400).json({
           error: "Błędne hasło!",
         });
@@ -297,6 +293,7 @@ module.exports.ChangePasswordSettings = (req, res) => {
             error: "Reset password error",
           });
         } else {
+          console.log('Hasło zmienione');
           return res.json({
             message: "Password changed",
           });
@@ -321,12 +318,48 @@ module.exports.updateTheme=(req,res, next)=>{
 
 module.exports.askAndGetBlog=(req,res,next)=>{
   console.log('askAndGetBlog: '+req.body.website);
+  console.log('Widoczny?' + req.body.isVisible);
   User.findOne({ website: req.body.website},
       (err, user) => {
           if (!user)
               return res.status(405).json({ status: false, message: 'Użytkownik nie znaleziony.' });
           else
-              return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','theme' ]) }); //dane eksportowane do frontu dla nie auth user
+              return res.status(200).json({ status: true, user : _.pick(user,['website','nickname','theme','isVisible' ]) }); //dane eksportowane do frontu dla nie auth user
       }
   );
+}
+
+module.exports.hideBlog = (req, res) => {
+  console.log("Ukrywanie bloga...");
+  User.updateOne({nickname:req.body.nickname},{$set:{isVisible: false}},{upsert:true}, function (err,doc){
+    if(err) return res.status(213).json({status:false, message: 'Coś się popsuło...'})
+    else (!err)
+    {
+        //console.log('ale czy na pewno ?');
+        return res.status(271).json({status:true, message: 'Blog ukryty!'})
+    }
+  })
+}
+
+module.exports.showBlog = (req, res) => {
+  console.log("Udostępnianie bloga na świat...");
+  User.updateOne({nickname:req.body.nickname},{$set:{isVisible: true}},{upsert:true}, function (err,doc){
+    if(err) return res.status(213).json({status:false, message: 'Coś się popsuło...'})
+    else (!err)
+    {
+        //console.log('ale czy na pewno ?');
+        return res.status(271).json({status:true, message: 'Blog już nie jest ukryty!'})
+    }
+  })
+}
+
+module.exports.deleteAccount = (req, res) => {
+  User.deleteOne({nickname:req.body.nickname}, function (err, doc){
+    if(err) return res.status(213).json({status:false, message: 'Coś się popsuło...'})
+    else (!err)
+    {
+        //console.log('ale czy na pewno ?');
+        return res.status(271).json({status:true, message: 'Konto usunięte, papa!'})
+    }
+  })
 }
