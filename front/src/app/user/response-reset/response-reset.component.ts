@@ -70,6 +70,8 @@ export class ResponseResetComponent implements OnInit {
   //   return true;
   // }
 
+
+
   onSubmit(form) {
     this.ResponseResetForm.value.userToken = this.token;
     console.log(form);

@@ -12,3 +12,8 @@ body {
 li {
   margin-left: 20px;
 }
+.nav-link{
+  font-weight: bold;
+   color: #56baed;
+
+}

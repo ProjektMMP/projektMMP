@@ -16,7 +16,8 @@ export class UserService {
     nickname: '',
     email: '',
     password: '',
-    theme: ''
+    theme: '',
+    isVisible: true
   };
 
   noAuthHeader = { headers: new HttpHeaders({ NoAuth: 'True' }) };
@@ -104,5 +105,18 @@ export class UserService {
   // }
   setUserTheme(value){
     this.selectedUser.theme=value;
+  }
+
+  setVisibility(value) {
+    this.selectedUser.isVisible=value;
+  }
+  deleteAccount(body) {
+    return this.http.post(`${BASEURL}/delete-account`, body);
+  }
+  hideBlog(body) {
+    return this.http.post(`${BASEURL}/hide-blog`, body);
+  }
+  showBlog(body) {
+    return this.http.post(`${BASEURL}/show-blog`, body);
   }
 }

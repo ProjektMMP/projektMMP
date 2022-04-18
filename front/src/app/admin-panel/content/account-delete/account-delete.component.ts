@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgForm, FormBuilder, FormGroup, Validators, CheckboxControlValueAccessor } from '@angular/forms';
 import { UserService } from 'src/app/shared/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -26,7 +26,7 @@ export class AccountDeleteComponent implements OnInit {
 
   ngOnInit(): void {
     this.Init();
-    this.userService.getUserProfile().subscribe(
+    this.userService.getAuthUserProfile().subscribe(
       (res) => {
         this.userDetails = res['user'];
         console.log(this.userDetails.nickname);
@@ -39,41 +39,38 @@ export class AccountDeleteComponent implements OnInit {
 
   Init() {
     this.DeleteAccountForm = this.fb.group({
-      nicknme: [''],
+      nickname: [''],
       passwordDelete: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
 
   onSubmit(form) {
-    
+    this.DeleteAccountForm.value.nickname = this.userDetails.nickname;
+    console.log(form.value.nickname);
+    if(form.valid) {
+      this.IsFormDeleteValid = true;
+      this.userService.deleteAccount(this.DeleteAccountForm.value).subscribe(
+        (data) => {
+          this.DeleteAccountForm.reset();
+          this.successMessage = 'Konto usunięte!';
+          console.log('Konto usuniete');
+          setTimeout(() => {
+            this.successMessage = null;
+            this.router.navigate(['login']);
+          }, 3000);
+    },
+    (err) => {
+      console.log('Błąd usuwania konta!');
+    })
   }
-  //  onSubmit(form) {
-  //    this.ChangePasswordForm.value.nickname = this.userDetails.nickname;
-  //    console.log(form);
-  //    if (form.valid) {
-  //      this.IsFormValid = true;
-  //      console.log(this.ChangePasswordForm.value.newPassword);
-  //      this.userService.changePassword(this.ChangePasswordForm.value).subscribe(
-  //        (data) => {
-  //          this.ChangePasswordForm.reset();
-  //          this.successMessage = 'Sukces!';
-  //          console.log('Sukces!')
-  //          setTimeout(() => {
-  //            this.successMessage = null;
-  //          }, 3000);
-  //        },
-  //        (err) => {
-  //          if (err.status === 400) {
-  //            console.log('Złe hasło!');
-  //            this.serverErrorMessages = 'Podano błędne dotychczasowe hasło!';
-  //          }
-  //        }
-  //      );
-  //    } else {
-  //      this.IsFormValid = false;
-  //    }
-  //  }
-   onClick(expression) {
+}
+
+  onClick(expression) {
     this.display = expression;
+  }
+
+  addVisibility(isVisible) {
+    this.userService.setVisibility(isVisible);
+    console.log('visibility: '+this.userDetails.isVisible)
   }
 }

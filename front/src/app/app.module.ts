@@ -30,6 +30,7 @@ import { AccountDeleteComponent } from './admin-panel/content/account-delete/acc
 import {Theme1Component} from "./user-profile/templates/theme1/theme1.component";
 import {Theme2Component} from "./user-profile/templates/theme2/theme2.component";
 import { Theme3Component } from './user-profile/templates/theme3/theme3.component';
+import { VisibilityComponent } from './admin-panel/content/visibility/visibility.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { Theme3Component } from './user-profile/templates/theme3/theme3.componen
     AccountDeleteComponent,
     Theme1Component,
     Theme2Component,
-    Theme3Component
+    Theme3Component,
+    VisibilityComponent
   ],
   imports: [
     BrowserModule,
